@@ -1,0 +1,40 @@
+version: '3.8'
+
+services:
+  orchestrator-api:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: langgraph-orchestrator-api
+    ports:
+      - "8000:8000"
+    environment:
+      - ENVIRONMENT=production
+      - LOG_LEVEL=INFO
+      - REDIS_HOST=redis
+      - REDIS_PORT=6379
+      - API_HOST=0.0.0.0
+      - API_PORT=8000
+      - CRITIC_PASS_THRESHOLD=0.85
+      - MAX_CORRECTION_CYCLES=3
+    depends_on:
+      - redis
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8000/health"]
+      interval: 10s
+      timeout: 5s
+      retries: 3
+
+  redis:
+    image: redis:7.2-alpine
+    container_name: langgraph-redis-checkpoint
+    ports:
+      - "6379:6379"
+    volumes:
+      - redis-data:/data
+    restart: unless-stopped
+    command: redis-server --appendonly yes
+
+volumes:
+  redis-data:

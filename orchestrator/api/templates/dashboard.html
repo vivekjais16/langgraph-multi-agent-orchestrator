@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LangGraph Multi-Agent Orchestrator — Mission Control</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600;700&family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Inter', sans-serif; background-color: #0b0f19; color: #f3f4f6; }
+        .mono { font-family: 'JetBrains Mono', monospace; }
+        .glow-purple { box-shadow: 0 0 25px -5px rgba(168, 85, 247, 0.35); }
+        .glow-indigo { box-shadow: 0 0 25px -5px rgba(99, 102, 241, 0.35); }
+    </style>
+</head>
+<body class="min-h-screen flex flex-col justify-between">
+
+    <!-- Header -->
+    <header class="border-b border-gray-800 bg-gray-900/60 backdrop-blur sticky top-0 z-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 flex items-center justify-between">
+            <div class="flex items-center space-x-3">
+                <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-purple-600 to-indigo-500 flex items-center justify-center text-white font-bold text-xl shadow-lg">
+                    🤖
+                </div>
+                <div>
+                    <h1 class="text-lg font-bold text-white tracking-tight flex items-center gap-2">
+                        LangGraph Multi-Agent Orchestrator
+                        <span class="text-xs px-2 py-0.5 rounded-full bg-purple-900/60 text-purple-300 border border-purple-700">v2.4 Production</span>
+                    </h1>
+                    <p class="text-xs text-gray-400">Architected by Vivek Jaiswal &bull; Senior Software Engineer</p>
+                </div>
+            </div>
+            <div class="flex items-center gap-4">
+                <div class="flex items-center gap-2 bg-emerald-950/60 border border-emerald-800 px-3 py-1 rounded-full text-xs text-emerald-400">
+                    <span class="w-2 h-2 rounded-full bg-emerald-400 animate-ping"></span>
+                    Graph Engine Active
+                </div>
+                <a href="/docs" target="_blank" class="text-xs text-indigo-400 hover:text-indigo-300 font-semibold transition">OpenAPI Docs &rarr;</a>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Workspace -->
+    <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 w-full flex-grow grid grid-cols-1 lg:grid-cols-12 gap-8">
+        
+        <!-- Left Column: Controls & Architecture -->
+        <div class="lg:col-span-5 space-y-6">
+            
+            <!-- Graph Overview Card -->
+            <div class="bg-gray-900 border border-gray-800 rounded-2xl p-6 glow-purple">
+                <h2 class="text-sm font-semibold uppercase tracking-wider text-purple-400 mb-4 flex items-center gap-2">
+                    <span>⚡</span> Multi-Agent StateGraph
+                </h2>
+                
+                <div class="space-y-3">
+                    <div class="p-3 bg-gray-950 border border-purple-900/50 rounded-xl flex items-center justify-between">
+                        <div class="flex items-center gap-3">
+                            <span class="p-2 bg-purple-900/40 rounded-lg text-purple-300 font-mono text-xs">01</span>
+                            <div>
+                                <p class="text-xs font-bold text-white">Supervisor Node</p>
+                                <p class="text-[11px] text-gray-400">Task Decomposition & Dynamic Routing</p>
+                            </div>
+                        </div>
+                        <span class="text-[10px] bg-purple-950 text-purple-300 px-2 py-0.5 rounded border border-purple-800">Coordinator</span>
+                    </div>
+
+                    <div class="p-3 bg-gray-950 border border-blue-900/50 rounded-xl flex items-center justify-between">
+                        <div class="flex items-center gap-3">
+                            <span class="p-2 bg-blue-900/40 rounded-lg text-blue-300 font-mono text-xs">02</span>
+                            <div>
+                                <p class="text-xs font-bold text-white">Researcher Node</p>
+                                <p class="text-[11px] text-gray-400">MCP Tool Calls & RAG Synthesis</p>
+                            </div>
+                        </div>
+                        <span class="text-[10px] bg-blue-950 text-blue-300 px-2 py-0.5 rounded border border-blue-800">MCP Tools</span>
+                    </div>
+
+                    <div class="p-3 bg-gray-950 border border-amber-900/50 rounded-xl flex items-center justify-between">
+                        <div class="flex items-center gap-3">
+                            <span class="p-2 bg-amber-900/40 rounded-lg text-amber-300 font-mono text-xs">03</span>
+                            <div>
+                                <p class="text-xs font-bold text-white">Coder Node</p>
+                                <p class="text-[11px] text-gray-400">Code Synthesis & Sandbox Execution</p>
+                            </div>
+                        </div>
+                        <span class="text-[10px] bg-amber-950 text-amber-300 px-2 py-0.5 rounded border border-amber-800">Synthesis</span>
+                    </div>
+
+                    <div class="p-3 bg-gray-950 border border-emerald-900/50 rounded-xl flex items-center justify-between">
+                        <div class="flex items-center gap-3">
+                            <span class="p-2 bg-emerald-900/40 rounded-lg text-emerald-300 font-mono text-xs">04</span>
+                            <div>
+                                <p class="text-xs font-bold text-white">Critic Node (Reflection)</p>
+                                <p class="text-[11px] text-gray-400">Self-Correction & Quality Grading (≥85%)</p>
+                            </div>
+                        </div>
+                        <span class="text-[10px] bg-emerald-950 text-emerald-300 px-2 py-0.5 rounded border border-emerald-800">Self-Healing</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Task Submission Form -->
+            <div class="bg-gray-900 border border-gray-800 rounded-2xl p-6 glow-indigo">
+                <h2 class="text-sm font-semibold uppercase tracking-wider text-indigo-400 mb-4 flex items-center gap-2">
+                    <span>🚀</span> Dispatch Orchestration Task
+                </h2>
+
+                <form id="taskForm" class="space-y-4">
+                    <div>
+                        <label class="block text-xs font-medium text-gray-400 mb-1">Goal or Prompt</label>
+                        <textarea id="taskInput" rows="3" class="w-full bg-gray-950 border border-gray-700 rounded-xl p-3 text-sm text-white focus:outline-none focus:border-indigo-500 transition" placeholder="e.g. Architect a high-throughput async pipeline with Redis checkpointing and LangGraph multi-agent reflection"></textarea>
+                    </div>
+
+                    <div class="flex gap-2">
+                        <button type="button" onclick="setPreset('async_pipeline')" class="text-[11px] bg-gray-800 hover:bg-gray-700 text-gray-300 px-2.5 py-1 rounded-lg border border-gray-700 transition">Preset: Async Pipeline</button>
+                        <button type="button" onclick="setPreset('mcp_integration')" class="text-[11px] bg-gray-800 hover:bg-gray-700 text-gray-300 px-2.5 py-1 rounded-lg border border-gray-700 transition">Preset: MCP Transport</button>
+                    </div>
+
+                    <button type="submit" id="submitBtn" class="w-full bg-gradient-to-r from-purple-600 to-indigo-600 hover:from-purple-500 hover:to-indigo-500 text-white font-semibold py-2.5 rounded-xl shadow-lg transition flex items-center justify-center gap-2 text-sm">
+                        <span>Execute Multi-Agent Graph</span>
+                        <span>&rarr;</span>
+                    </button>
+                </form>
+            </div>
+        </div>
+
+        <!-- Right Column: Live Streaming Terminal & Metrics -->
+        <div class="lg:col-span-7 flex flex-col space-y-6">
+            
+            <!-- Telemetry Metrics Bar -->
+            <div class="grid grid-cols-3 gap-4">
+                <div class="bg-gray-900 border border-gray-800 rounded-xl p-4 text-center">
+                    <p class="text-xs text-gray-400 uppercase font-medium">Critic Score</p>
+                    <p id="metricScore" class="text-xl font-bold text-emerald-400 mt-1">--</p>
+                </div>
+                <div class="bg-gray-900 border border-gray-800 rounded-xl p-4 text-center">
+                    <p class="text-xs text-gray-400 uppercase font-medium">Refinement Cycles</p>
+                    <p id="metricCycles" class="text-xl font-bold text-indigo-400 mt-1">--</p>
+                </div>
+                <div class="bg-gray-900 border border-gray-800 rounded-xl p-4 text-center">
+                    <p class="text-xs text-gray-400 uppercase font-medium">Status</p>
+                    <p id="metricStatus" class="text-xl font-bold text-gray-400 mt-1">IDLE</p>
+                </div>
+            </div>
+
+            <!-- Streaming Terminal -->
+            <div class="bg-gray-950 border border-gray-800 rounded-2xl flex-grow flex flex-col overflow-hidden shadow-2xl min-h-[420px]">
+                <div class="bg-gray-900 px-4 py-3 border-b border-gray-800 flex items-center justify-between">
+                    <div class="flex items-center space-x-2">
+                        <span class="w-3 h-3 rounded-full bg-red-500/80"></span>
+                        <span class="w-3 h-3 rounded-full bg-yellow-500/80"></span>
+                        <span class="w-3 h-3 rounded-full bg-green-500/80"></span>
+                        <span class="text-xs font-mono text-gray-400 ml-2">live-agent-telemetry.log</span>
+                    </div>
+                    <span id="connBadge" class="text-[11px] text-gray-500 font-mono">Connecting...</span>
+                </div>
+
+                <div id="terminalOutput" class="p-4 mono text-xs text-gray-300 space-y-3 overflow-y-auto flex-grow max-h-[500px]">
+                    <p class="text-gray-500">// LangGraph multi-agent orchestrator initialized.</p>
+                    <p class="text-gray-500">// Enter a goal on the left to watch autonomous node transitions and tool calls.</p>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="border-t border-gray-800 py-4 text-center text-xs text-gray-500 bg-gray-950">
+        Engineered by <strong>Vivek Jaiswal</strong> &bull; Python, Django, FastAPI, LangGraph & Model Context Protocol (MCP) Architect
+    </footer>
+
+    <script>
+        const wsProtocol = window.location.protocol === 'https:' ? 'wss:' : 'ws:';
+        const wsUrl = `${wsProtocol}//${window.location.host}/ws/orchestrate`;
+        let ws;
+
+        function connectWS() {
+            ws = new WebSocket(wsUrl);
+            ws.onopen = () => {
+                document.getElementById('connBadge').textContent = '● WS Connected';
+                document.getElementById('connBadge').className = 'text-[11px] text-emerald-400 font-mono';
+            };
+            ws.onclose = () => {
+                document.getElementById('connBadge').textContent = '○ WS Reconnecting...';
+                document.getElementById('connBadge').className = 'text-[11px] text-yellow-500 font-mono';
+                setTimeout(connectWS, 2000);
+            };
+            ws.onmessage = (event) => {
+                const data = JSON.parse(event.data);
+                handleStreamEvent(data);
+            };
+        }
+
+        connectWS();
+
+        function handleStreamEvent(data) {
+            const term = document.getElementById('terminalOutput');
+            const p = document.createElement('div');
+            p.className = 'border-l-2 pl-3 py-1 my-1 transition';
+
+            if (data.type === 'GRAPH_STARTED') {
+                p.className += ' border-purple-500 bg-purple-950/20 text-purple-300';
+                p.innerHTML = `<span class="font-bold">[GRAPH_START]</span> Dispatched task: "${data.task}" (Thread: ${data.thread_id})`;
+                document.getElementById('metricStatus').textContent = 'RUNNING';
+                document.getElementById('metricStatus').className = 'text-xl font-bold text-yellow-400 mt-1';
+            } else if (data.type === 'NODE_TRANSITION') {
+                const agentColors = {
+                    supervisor: 'border-purple-500 text-purple-300',
+                    researcher: 'border-blue-500 text-blue-300',
+                    coder: 'border-amber-500 text-amber-300',
+                    critic: 'border-emerald-500 text-emerald-300'
+                };
+                p.className += ` ${agentColors[data.agent] || 'border-gray-500 text-gray-300'}`;
+                p.innerHTML = `<span class="font-bold uppercase">[${data.agent}]</span> ${data.thought}<br><span class="text-gray-500 text-[11px]">Action: ${data.action || 'None'} | Tool: ${data.tool || 'Internal'}</span>`;
+            } else if (data.type === 'GRAPH_COMPLETED') {
+                p.className += ' border-emerald-500 bg-emerald-950/30 text-emerald-300';
+                p.innerHTML = `<span class="font-bold">[COMPLETED]</span> Audit Score: ${(data.critique_score * 100).toFixed(1)}% | Cycles: ${data.correction_cycles}`;
+                document.getElementById('metricScore').textContent = `${(data.critique_score * 100).toFixed(0)}%`;
+                document.getElementById('metricCycles').textContent = data.correction_cycles;
+                document.getElementById('metricStatus').textContent = 'COMPLETED';
+                document.getElementById('metricStatus').className = 'text-xl font-bold text-emerald-400 mt-1';
+                document.getElementById('submitBtn').disabled = false;
+            }
+
+            term.appendChild(p);
+            term.scrollTop = term.scrollHeight;
+        }
+
+        document.getElementById('taskForm').addEventListener('submit', (e) => {
+            e.preventDefault();
+            const input = document.getElementById('taskInput');
+            const task = input.value.trim();
+            if (!task) return;
+
+            document.getElementById('submitBtn').disabled = true;
+            if (ws && ws.readyState === WebSocket.OPEN) {
+                ws.send(JSON.stringify({ task: task, thread_id: 'session_' + Math.floor(Math.random()*10000) }));
+            }
+        });
+
+        function setPreset(type) {
+            const input = document.getElementById('taskInput');
+            if (type === 'async_pipeline') {
+                input.value = "Design an async event processing pipeline with Redis sliding-window checkpointer and self-healing reflection loops";
+            } else if (type === 'mcp_integration') {
+                input.value = "Build an Anthropic Model Context Protocol (MCP) tool server in FastAPI with JSON-RPC schemas";
+            }
+        }
+    </script>
+</body>
+</html>
